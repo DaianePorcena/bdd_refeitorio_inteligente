@@ -1,6 +1,5 @@
 import face_recognition as reconhecedor
 import colored
-import secrets
 import random
 import json
 
@@ -106,29 +105,16 @@ def liberar_alunos(alunos_reconhecidos, probabilidade_de_liberacao):
     
     return total_de_alunos_liberados
 
+def simular_alerta_pessoas_nao_cadastradas(configuracao):
+    total_de_pessoas_nao_cadastradas = 0
 
-# def mostrar_prato_do_dia(configuracao):
-#     if configuracao and "prato_dia" in configuracao:
-#         prato_dia = configuracao["prato_dia"]
-#         if isinstance(prato_dia, list) and len(prato_dia) > 0:
-#             print(colored.fg('white'), colored.bg('light_magenta'),
-#                   f"Prato do dia: {prato_dia[0]['nome']}", colored.attr('reset'))
-#         else:
-#             print("Nenhum prato do dia encontrado.")
-#     else:
-#         print("Nenhum prato do dia encontrado.")
+    for pessoa in configuracao["pessoas_nao_cadastradas"]:
+        matricula_pessoa = pessoa.get("matricula")
+        if matricula_pessoa not in [aluno["matricula"] for aluno in configuracao["alunos_cadastrados"]]:
+            print(colored.fg('black'), colored.bg('red'),
+                  f"Nome: {pessoa['nome']}", colored.attr('reset'))
 
+            total_de_pessoas_nao_cadastradas += 1
 
-# def simular_alerta_pessoas_nao_cadastradas(configuracao):
-#     total_de_pessoas_nao_cadastradas = 0
-
-#     for pessoa in configuracao["pessoas_nao_cadastradas"]:
-#         matricula_pessoa = pessoa.get("matricula")
-#         if matricula_pessoa not in [aluno["matricula"] for aluno in configuracao["alunos_cadastrados"]]:
-#             print(colored.fg('black'), colored.bg('red'),
-#                   f"Nome: {pessoa['nome']}", colored.attr('reset'))
-
-#             total_de_pessoas_nao_cadastradas += 1
-
-#     return total_de_pessoas_nao_cadastradas
+    return total_de_pessoas_nao_cadastradas
 

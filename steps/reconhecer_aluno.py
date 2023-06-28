@@ -1,7 +1,7 @@
 from behave import given, when, then
 from refeitorio import *
 
-@given("o ambiente de desenvolvimento esteja preparado corretamente")
+@given("o ambiente de reconhecimento esteja preparado corretamente")
 def given_ambiente_preparado_corretamente(context):
     preparado, context.configuracao = preparar()
 
@@ -29,4 +29,4 @@ def then_nenhum_aluno_reconhecido(context):
 def then_total_de_alunos_reconhecidos(context, total_de_reconhecimentos):
     _, context.alunos_cadastrados = reconhecer_alunos(context.configuracao, context.pessoas)
 
-    assert len(context.pacientes) == int(total_de_reconhecimentos)
+    assert len(context.alunos_cadastrados) == int(total_de_reconhecimentos)
